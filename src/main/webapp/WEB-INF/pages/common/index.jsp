@@ -77,7 +77,7 @@
 		window.setTimeout(function(){
 			$.messager.show({
 				title:"消息提示",
-				msg:'欢迎登录，超级管理员！ <a href="javascript:void" onclick="top.showAbout();">联系管理员</a>',
+				msg:'欢迎登录，${user.username}！ <a href="javascript:void" onclick="top.showAbout();">联系管理员</a>',
 				timeout:5000
 			});
 		},3000);
@@ -88,7 +88,34 @@
 		});
 		
 		$("#btnEp").click(function(){
-			alert("修改密码");
+			// 获得新密码和确认密码的输入内容
+			var newPass = $("#txtNewPass").val();
+			var rePass = $("#txtRePass").val();
+			
+			//进行校验
+			if($.trim(newPass)=="") {
+				//新密码为空
+				$.messager.alert('警告','新密码不能为空或者空白字符！','warning');
+				return;
+			}
+			//两次密码是否一致
+			if($.trim(newPass) != $.trim(rePass)) {
+				$.messager.alert('警告','两次密码不一致！','warning');
+				return;
+			}
+			
+			//通过ajax修改密码
+			$.post("${pageContext.request.contextPath}/user_editpassword.action", {'password': newPass}, function(data){
+				if(data.result == "success") {
+					$.messager.alert("信息", data.msg, "info");
+				} else {
+					$.messager.alert("信息", data.msg, "info");
+				}
+				$("#txtNewPass").val("");
+				$("#txtRePass").val(""); 
+				//窗口关闭
+				$("#editPwdWindow").window('close');
+			});
 		});
 	});
 
@@ -142,7 +169,7 @@
 		$.messager
 		.confirm('系统提示','您确定要退出本次登录吗?',function(isConfirm) {
 			if (isConfirm) {
-				location.href = '${pageContext.request.contextPath }/login.jsp';
+				location.href = '${pageContext.request.contextPath }/invalidate.jsp';
 			}
 		});
 	}
@@ -152,7 +179,7 @@
 	}
 	// 版权信息
 	function showAbout(){
-		$.messager.alert("宅急送 v1.0","设计: yuyang<br/> 管理员邮箱: yuyang@itcast.cn <br/> QQ: 117038615");
+		$.messager.alert("宅急送 v1.0"," 管理员邮箱: gx195816@gmail.com <br/> QQ: 392437230");
 	}
 </script>
 </head>
@@ -165,7 +192,7 @@
 		</div>
 		<div id="sessionInfoDiv"
 			style="position: absolute;right: 5px;top:10px;">
-			[<strong>超级管理员</strong>]，欢迎你！您使用[<strong>192.168.1.100</strong>]IP登录！
+			[<strong>${user.username }</strong>]，欢迎你！您使用[<strong>${pageContext.request.remoteAddr }</strong>]IP登录！
 		</div>
 		<div style="position: absolute; right: 5px; bottom: 10px; ">
 			<a href="javascript:void(0);" class="easyui-menubutton"
@@ -215,7 +242,7 @@
 				<tr>
 					<td style="width: 300px;">
 						<div style="color: #999; font-size: 8pt;">
-							传智播客 | Powered by <a href="http://www.itcast.cn/">itcast.cn</a>
+							物流管理 | Powered by <a href="#">pdm.top</a>
 						</div>
 					</td>
 					<td style="width: *;" class="co1"><span id="online"

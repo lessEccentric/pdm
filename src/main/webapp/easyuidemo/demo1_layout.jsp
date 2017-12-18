@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <!-- 先引入 jquery的 js -->
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
-<!-- 引入 easyui的js -->
+<!-- 引入 easyui的js --> 
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/easyui/jquery.easyui.min.js"></script>
 <!-- 引入国际化 js -->
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"></script>

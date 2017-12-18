@@ -4,12 +4,21 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.pdm.top.domain.user.User;
 import com.pdm.top.web.action.base.BaseAction;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.stereotype.Controller;
 
 /**
  * 用户登录
  */
+@Controller
 public class LoginAction extends BaseAction implements ModelDriven<User>{
-    //模型驱动
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6719203004830948054L;
+	/**
+	 * 
+	 */
+	//模型驱动
     private User user = new User();
 
     public User getModel() {

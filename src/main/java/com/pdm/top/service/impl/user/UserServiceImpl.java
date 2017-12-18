@@ -15,7 +15,6 @@ public class UserServiceImpl extends BaseService implements UserService{
 
     public void editPassword(User user) {
         User exist = userDAO.findById(user.getId());
-        exist.setPassword(MD5Utils.md5(user.getPassword()));
-        userDAO.update(exist);
+        exist.setPassword(MD5Utils.md5(user.getPassword()));      
     }
 }

@@ -10,7 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserAction extends BaseAction implements ModelDriven<User> {
-    //模型驱动
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4632905341044899352L;
+	//模型驱动
     private User user = new User();
 
     public User getModel() {
@@ -18,7 +22,7 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
     }
 
     // 修改密码
-    public String editPassword() {
+    public String editpassword() {
         User loginUser = (User) ServletActionContext.getRequest().getSession().getAttribute("user");
         user.setId(loginUser.getId());
 

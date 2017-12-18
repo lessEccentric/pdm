@@ -15,4 +15,5 @@
 	<!-- 配置Action -->
 	<bean id="loginAction" class="com.pdm.top.web.action.user.LoginAction" scope="prototype"/>
 	<bean id="userAction" class="com.pdm.top.web.action.user.UserAction" scope="prototype"/>
+	<bean id="standardAction" class="com.pdm.top.web.action.bc.StandardAction" scope="prototype"/>
 </beans>

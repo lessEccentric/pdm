@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>基础档案设置</h1>
-<a href="http://www.itcast.cn">测试</a>
+<a href="http://www.pdm.cn">测试</a>
 </body>
 </html>

@@ -47,7 +47,7 @@
 		// 数据
 		var zNodes = [
 		    // id 代表本节点编号，pId代表父节点编号 
-			{"id":"3","pId":"1","name":"传智播客","url":"http://www.itcast.cn","icon":"${pageContext.request.contextPath}/js/ztree/img/diy/3.png"},
+			{"id":"3","pId":"1","name":"物流管理","url":"http://www.pdm.cn","icon":"${pageContext.request.contextPath}/js/ztree/img/diy/3.png"},
 			{"id":"1","pId":"0","name":"菜单一"},
 			{"id":"2","pId":"0","name":"菜单二"},
 			{"id":"4","pId":"1","name":"菜单1-2"},
