@@ -65,7 +65,43 @@
 					rows\[\d+\]\.user\.station
 				</param>
 			</result>
+			<!-- 删除数据 -->
+			<result name="delBatchSUCCESS">/WEB-INF/pages/base/standard.jsp</result>
+			<!-- 收派标准ajax列表 -->
+			<result name="ajaxlistSUCCESS" type="json">
+				<param name="root">standards</param>
+				<!-- 配置属性includeProperties 指定哪些属性返回 -->
+				<param name="includeProperties">
+					<!-- 正则表达式 格式 -->
+					\[\d+\]\.id,
+					\[\d+\]\.name
+				</param>
+			</result>
 		</action>
+		
+		<!-- 取派员管理 -->
+		<action name="staff_*" class="staffAction" method="{1}">
+			<!-- 添加或修改 -->
+			<result name="saveOrUpdateSUCCESS">/WEB-INF/pages/base/staff.jsp</result>
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.telephone,
+					rows\[\d+\]\.name,
+					rows\[\d+\]\.haspda,
+					rows\[\d+\]\.deltag,
+					rows\[\d+\]\.station,
+					rows\[\d+\]\.standard\.name,
+					rows\[\d+\]\.standard\.id
+				</param>
+			</result>
+			<!-- 删除数据 -->
+			<result name="delBatchSUCCESS">/WEB-INF/pages/base/staff.jsp</result>
+		</action>
+		
+		
 	</package>
 
 	<!-- 此包不需要登陆拦截 -->

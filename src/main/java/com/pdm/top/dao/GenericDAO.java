@@ -2,6 +2,7 @@ package com.pdm.top.dao;
 
 import org.hibernate.criterion.DetachedCriteria;
 
+import com.pdm.top.domain.bc.Staff;
 import com.pdm.top.domain.bc.Standard;
 
 import java.io.Serializable;
@@ -66,7 +67,7 @@ public interface GenericDAO<T> {
      */
 	public long findTotalCount(DetachedCriteria detachedCriteria);
 
-	public List<Standard> pageQuery(DetachedCriteria detachedCriteria, int firstResult, int maxResults);
+	public List<Staff> pageQuery(DetachedCriteria detachedCriteria, int firstResult, int maxResults);
 
 
 }

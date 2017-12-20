@@ -42,7 +42,18 @@
 	}
 	
 	function doDelete(){
-		alert("删除...");
+		var array = $('#grid').datagrid('getSelections');
+		if(array.length == 0) {
+			//一行也没选中
+			$.messager.alert('警告','请选中要删除的数据!','warning');
+			return ;
+		}
+		$.messager.confirm('消息','确认要删除吗？',function(r){
+			if(r) {
+				//提交删除form
+				$('#delForm').submit();
+			}
+		});
 	}
 	//工具栏
 	var toolbar = [ {
@@ -128,7 +139,7 @@
 			border : false,
 			rownumbers : true,
 			striped : true,
-			pageList: [30,50,100],
+			pageList: [3,5,10],
 			pagination : true,
 			toolbar : toolbar,
 			url : "${pageContext.request.contextPath }/standard_pageQuery.action",
@@ -175,11 +186,13 @@
 </script>	
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
-    <div region="center" border="false">
-    	<table id="grid"></table>
-	</div>
+	<form  id="delForm" action="${pageContext.request.contextPath }/standard_delBatch.action" method="post">
+	    <div region="center" border="false">
+	    	<table id="grid"></table>
+		</div>
+	</form>
 	
-	<div class="easyui-window" title="添加收派标准" id="addStandardWindow" collapsible="false" minimizable="false" maximizable="false" style="top:100px;left:200px">
+	<div class="easyui-window" id="addStandardWindow" collapsible="false" minimizable="false" maximizable="false" style="top:100px;left:200px">
 		<div region="north" style="height:31px;overflow:hidden;" split="false" border="false" >
 			<div class="datagrid-toolbar">
 				<a id="save" icon="icon-save" href="javascript:commitStandardForm();" class="easyui-linkbutton" plain="true" >保存</a>

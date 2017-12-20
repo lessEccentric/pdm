@@ -28,7 +28,13 @@
 	type="text/javascript"></script>
 <script type="text/javascript">
 	function doAdd(){
-		//alert("增加...");
+		$('#name').val('');
+		$('#telephone').val('');
+		$('#station').val('');
+		$('#haspda').removeAttr("checked");
+		$('#standardId').combobox('setValue', '');
+		$('#id').val('');
+		$('#id').removeAttr('readonly');
 		$('#addStaffWindow').window("open");
 	}
 	
@@ -37,11 +43,29 @@
 	}
 	
 	function doDelete(){
-		alert("删除...");
+		//判断是否选中
+		var array = $('#grid').datagrid('getSelections');
+		if(array.length == 0) {
+			$.messager.alert('警告','删除前必须选中！','warning');
+		} else {
+			//$('#gridForm').form({url:''}).submit();
+			$('#gridForm').form('submit', {  
+			    url:"${pageContext.request.contextPath}/staff_delBatch.action",  
+			    success:function(data){  
+			        alert(data)  
+			    }  
+			}); 
+		}
 	}
 	
 	function doRestore(){
-		alert("将取派员还原...");
+		//判断是否选中
+		var array = $('#grid').datagrid('getSelections');
+		if(array.length == 0) {
+			$.messager.alert('警告','恢复前必须选中！','warning');
+		} else {
+			$('#').submit('');
+		}
 	}
 	//工具栏
 	var toolbar = [ {
@@ -129,10 +153,10 @@
 			border : false,
 			rownumbers : true,
 			striped : true,
-			pageList: [30,50,100],
+			pageList: [3,5,10],
 			pagination : true,
 			toolbar : toolbar,
-			url : "json/staff.json",
+			url : "${pageContext.request.contextPath}/staff_pageQuery.action",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
@@ -149,17 +173,58 @@
 	        resizable:false
 	    });
 		
+		/* // 页面加载后，发起ajax请求
+		$.post("${pageContext.request.contextPath}/standard_ajaxlist.action",function(data){
+			for(var i=0; i < data.length;i++) {
+				
+			}
+			$(data).each(function(){
+				var option =$("<option value='"+this.id+"'>"+this.name+"</option>");
+				$("#standardList").append(option);
+				//应用combobox效果
+				$("#standardList").combobox();
+			});
+		}); */
+		
+		//给保存按钮添加点击事件
+		$('#save').click(function(){
+			//表单form校验
+			if($('#staffForm').form('validate')) {
+				//通过校验
+				$('#staffForm').submit();
+			} else {
+				//校验失败
+				$.messager.alert('警告','表单存在非法数据项','warning');
+			}
+		});
+		
 	});
 
-	function doDblClickRow(){
-		alert("双击表格数据...");
+	function doDblClickRow(rowIndex, rowData){
+		//form回显
+		$('#name').val(rowData.name);
+		$('#telephone').val( rowData.telephone);
+		$('#station').val(rowData.station);
+		//pda勾选
+		if(rowData.haspda == "1") {
+			$('#haspda').attr("checked","checked");
+		} else {
+			$('#haspda').removeAttr("checked");
+		}
+		$('#standardId').combobox('setValue', rowData.standard.id);
+		$('#id').val(rowData.id);
+		$('#id').attr('readonly','readonly');
+		//弹出修改窗口
+		$("#addStaffWindow").window('open');
 	}
 </script>	
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
-	<div region="center" border="false">
-    	<table id="grid"></table>
-	</div>
+	<form method="post" id="gridForm">
+		<div region="center" border="false">
+	    	<table id="grid"></table>
+		</div>
+	</form>
 	<div class="easyui-window" title="对收派员进行添加或者修改" id="addStaffWindow" collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
 		<div region="north" style="height:31px;overflow:hidden;" split="false" border="false" >
 			<div class="datagrid-toolbar">
@@ -168,7 +233,7 @@
 		</div>
 		
 		<div region="center" style="overflow:auto;padding:5px;" border="false">
-			<form>
+			<form action="${pageContext.request.contextPath}/staff_saveOrUpdate.action" method="post" id="staffForm">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">收派员信息</td>
@@ -176,30 +241,33 @@
 					<!-- TODO 这里完善收派员添加 table -->
 					<tr>
 						<td>取派员编号</td>
-						<td><input type="text" name="id" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" id="id" name="id" class="easyui-validatebox" required="true"/></td>
 					</tr>
 					<tr>
 						<td>姓名</td>
-						<td><input type="text" name="name" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" id="name" name="name" class="easyui-validatebox" required="true"/></td>
 					</tr>
 					<tr>
 						<td>手机</td>
-						<td><input type="text" name="telephone" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" id="telephone" name="telephone" class="easyui-validatebox" required="true"/></td>
 					</tr>
 					<tr>
 						<td>单位</td>
-						<td><input type="text" name="station" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" id="station" name="station" class="easyui-validatebox" required="true"/></td>
 					</tr>
 					<tr>
 						<td colspan="2">
-						<input type="checkbox" name="haspda" value="1" />
+						<input type="checkbox" id="haspda" name="haspda" value="1" />
 						是否有PDA</td>
 					</tr>
 					<tr>
 						<td>取派标准</td>
 						<td>
-							<input class="easyui-combobox" name="standard.id"  
-    							data-options="valueField:'id',textField:'name',url:'json/standard.json'" />  
+							<!-- 目标model是staff，提供setStandard方法，在Standard中提供setId的方法 -->
+							<input class="easyui-combobox" name="standard.id"  id="standardId" 
+    							data-options="valueField:'id',textField:'name',url:'${pageContext.request.contextPath}/standard_ajaxlist.action',required:true" />  
+    						<!-- <select id="standardList">
+    						</select> -->
 						</td>
 					</tr>
 					</table>

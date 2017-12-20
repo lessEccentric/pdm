@@ -15,4 +15,5 @@
 	<!-- 配置Service -->
 	<bean id="userService" class="com.pdm.top.service.impl.user.UserServiceImpl" />
 	<bean id="standardService" class="com.pdm.top.service.impl.bc.StandardServiceImpl" />
+	<bean id="staffService" class="com.pdm.top.service.impl.bc.StaffServiceImpl" />
 </beans>

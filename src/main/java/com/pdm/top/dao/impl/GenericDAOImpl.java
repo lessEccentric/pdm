@@ -1,6 +1,7 @@
 package com.pdm.top.dao.impl;
 
 import com.pdm.top.dao.GenericDAO;
+import com.pdm.top.domain.bc.Staff;
 import com.pdm.top.domain.bc.Standard;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -64,12 +65,12 @@ public class GenericDAOImpl<T> extends HibernateDaoSupport implements GenericDAO
 	}
 
 	@Override
-	public List<Standard> pageQuery(DetachedCriteria detachedCriteria, int firstResult, int maxResults) {
-		return this.getHibernateTemplate().findByCriteria(detachedCriteria, firstResult, maxResults);
+	public void saveOrupdate(T obj) {
+		this.getHibernateTemplate().saveOrUpdate(obj);
 	}
 
 	@Override
-	public void saveOrupdate(T obj) {
-		this.getHibernateTemplate().saveOrUpdate(obj);
+	public List<Staff> pageQuery(DetachedCriteria detachedCriteria, int firstResult, int maxResults) {
+		return this.getHibernateTemplate().findByCriteria(detachedCriteria, firstResult, maxResults);
 	}
 }
