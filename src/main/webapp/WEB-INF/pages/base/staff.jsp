@@ -48,13 +48,13 @@
 		if(array.length == 0) {
 			$.messager.alert('警告','删除前必须选中！','warning');
 		} else {
-			//$('#gridForm').form({url:''}).submit();
-			$('#gridForm').form('submit', {  
+			$('#gridForm').submit();
+			/* $('#gridForm').form('submit', {  
 			    url:"${pageContext.request.contextPath}/staff_delBatch.action",  
 			    success:function(data){  
 			        alert(data)  
 			    }  
-			}); 
+			});  */
 		}
 	}
 	
@@ -220,7 +220,7 @@
 </script>	
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
-	<form method="post" id="gridForm">
+	<form action="${pageContext.request.contextPath}/staff_delBatch.action" method="post" id="gridForm">
 		<div region="center" border="false">
 	    	<table id="grid"></table>
 		</div>
