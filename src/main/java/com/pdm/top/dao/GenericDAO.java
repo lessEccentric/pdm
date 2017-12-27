@@ -3,8 +3,6 @@ package com.pdm.top.dao;
 import org.hibernate.criterion.DetachedCriteria;
 
 import com.pdm.top.domain.bc.Staff;
-import com.pdm.top.domain.bc.Standard;
-
 import java.io.Serializable;
 import java.util.List;
 

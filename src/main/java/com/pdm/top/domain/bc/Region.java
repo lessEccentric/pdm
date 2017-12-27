@@ -10,14 +10,14 @@ import java.util.Set;
  */
 public class Region {
 
-	private String id;
-	private String province;
-	private String city;
-	private String district;
-	private String postcode;
-	private String shortcode;
-	private String citycode;
-	private Set subareas = new HashSet(0);
+	private String id;	//编号
+	private String province;	//省份
+	private String city;	//城市
+	private String district;	//区域
+	private String postcode;	//邮编
+	private String shortcode;	//简码
+	private String citycode;	//城市编码
+	private Set subareas = new HashSet(0);	//分区
 
 	public Region() {
 	}
@@ -68,7 +68,7 @@ public class Region {
 	}
 
 	public void setDistrict(String district) {
-		this.district = district;
+		this.district = district; 
 	}
 
 	public String getPostcode() {
@@ -103,6 +103,9 @@ public class Region {
 		this.subareas = subareas;
 	}
 	
+	public String getInfo() {
+		return province+","+city+","+district;
+	}
 	
 	
 

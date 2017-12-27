@@ -7,17 +7,18 @@ import java.io.Serializable;
  * @author GUXIONG
  *
  */
+@SuppressWarnings("serial")
 public class Subarea implements Serializable{
 	
 
-	private String id;
-    private DecidedZone decidedZone;
-    private Region region;
-    private String addresskey;
-    private String startnum;
-    private String endnum;
-    private String single;
-    private String position;
+	private String id;	//编码assigned手动指定
+    private DecidedZone decidedZone;	//关联定区
+    private Region region;	//关联区域
+    private String addresskey;	//关键字
+    private String startnum;	//起始号
+    private String endnum;	//结束号
+    private String single;	//是否区分单双号
+    private String position;	//具体位置信息
     
     public Subarea() {
 	}
