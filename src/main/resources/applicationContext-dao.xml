@@ -34,4 +34,18 @@
 		<!-- 注入SessionFactory-->
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	
+	<bean id="regionDAO" class="com.pdm.top.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名 -->
+		<constructor-arg index="0" type="java.lang.String" value="com.pdm.top.domain.bc.Region"></constructor-arg>
+		<!-- 注入SessionFactory-->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="subareaDAO" class="com.pdm.top.dao.impl.GenericDAOImpl">
+		<!-- 构造器注入 ，传入 实体类 完整类名 -->
+		<constructor-arg index="0" type="java.lang.String" value="com.pdm.top.domain.bc.Subarea"></constructor-arg>
+		<!-- 注入SessionFactory-->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 </beans>

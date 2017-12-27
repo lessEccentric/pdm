@@ -14,4 +14,6 @@ public interface StaffService extends PageQuery{
 
 	public void saveOrUpdate(Staff staff);
 
+	public void restore(String[] ids);
+
 }

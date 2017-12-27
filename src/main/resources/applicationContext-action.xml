@@ -17,4 +17,6 @@
 	<bean id="userAction" class="com.pdm.top.web.action.user.UserAction" scope="prototype"/>
 	<bean id="standardAction" class="com.pdm.top.web.action.bc.StandardAction" scope="prototype"/>
 	<bean id="staffAction" class="com.pdm.top.web.action.bc.StaffAction" scope="prototype"/>
+	<bean id="regionAction" class="com.pdm.top.web.action.bc.RegionAction" scope="prototype"/>
+	<bean id="subareaAction" class="com.pdm.top.web.action.bc.SubareaAction" scope="prototype"/>
 </beans>

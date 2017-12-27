@@ -46,4 +46,11 @@ public class StaffAction extends BaseAction implements ModelDriven<Staff> {
 		return "delBatchSUCCESS";
 	}
 	
+	//还原
+	public String restore() {
+		String[] ids = staff.getId().split(", ");
+		staffService.restore(ids);
+		return "restoreSUCCESS";
+	}
+	
 }

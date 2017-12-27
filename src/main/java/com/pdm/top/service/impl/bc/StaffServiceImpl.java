@@ -27,4 +27,12 @@ public class StaffServiceImpl extends BaseService implements StaffService {
 		staffDAO.saveOrupdate(staff);
 	}
 
+	@Override
+	public void restore(String[] ids) {
+		for (String id : ids) {
+			Staff staff = staffDAO.findById(id);
+			staff.setDeltag("0");
+		}
+	}
+
 }

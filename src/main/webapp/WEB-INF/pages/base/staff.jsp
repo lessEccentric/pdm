@@ -48,13 +48,13 @@
 		if(array.length == 0) {
 			$.messager.alert('警告','删除前必须选中！','warning');
 		} else {
-			$('#gridForm').submit();
-			/* $('#gridForm').form('submit', {  
-			    url:"${pageContext.request.contextPath}/staff_delBatch.action",  
-			    success:function(data){  
-			        alert(data)  
-			    }  
-			});  */
+			$.messager.confirm('消息','确认要删除吗？',function(r){
+				if(r) {
+					//提交删除form
+					$('#delForm').form({url:"${pageContext.request.contextPath}/staff_delBatch.action"}).submit();
+					window.location.reload();
+				}
+			});
 		}
 	}
 	
@@ -64,7 +64,8 @@
 		if(array.length == 0) {
 			$.messager.alert('警告','恢复前必须选中！','warning');
 		} else {
-			$('#').submit('');
+			$('#delForm').form({url:"${pageContext.request.contextPath}/staff_restore.action"}).submit();
+			window.location.reload();
 		}
 	}
 	//工具栏
@@ -220,7 +221,7 @@
 </script>	
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
-	<form action="${pageContext.request.contextPath}/staff_delBatch.action" method="post" id="gridForm">
+	<form id="delForm" method="post">
 		<div region="center" border="false">
 	    	<table id="grid"></table>
 		</div>
