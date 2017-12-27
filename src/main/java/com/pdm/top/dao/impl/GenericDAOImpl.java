@@ -2,7 +2,6 @@ package com.pdm.top.dao.impl;
 
 import com.pdm.top.dao.GenericDAO;
 import com.pdm.top.domain.bc.Staff;
-import com.pdm.top.domain.bc.Standard;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
@@ -60,7 +59,7 @@ public class GenericDAOImpl<T> extends HibernateDaoSupport implements GenericDAO
 	@Override
 	public long findTotalCount(DetachedCriteria detachedCriteria) {
 		detachedCriteria.setProjection(Projections.rowCount());	//投影查询
-		List<Long> list = this.getHibernateTemplate().findByCriteria(detachedCriteria);
+		List<Long> list = this.getHibernateTemplate().findByCriteria(detachedCriteria, 0, 1);
 		return list.get(0);
 	}
 
