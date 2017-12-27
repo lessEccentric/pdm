@@ -1,10 +1,11 @@
 package com.pdm.top.web.action.base;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.pdm.top.domain.bc.Staff;
 import com.pdm.top.page.PageRequestBean;
+import com.pdm.top.service.bc.RegionService;
 import com.pdm.top.service.bc.StaffService;
 import com.pdm.top.service.bc.StandardService;
+import com.pdm.top.service.bc.SubareaService;
 import com.pdm.top.service.user.UserService;
 
 import javax.annotation.Resource;
@@ -25,6 +26,14 @@ public abstract class BaseAction extends ActionSupport {
 
 	@Resource(name = "staffService")
 	protected StaffService staffService;
+	
+	@Resource(name = "regionService")
+	protected RegionService regionService;
+	
+	@Resource(name = "subareaService")
+	protected SubareaService subareaService;
+	
+	
 
 	// 封装分页参数
 	protected int page;
