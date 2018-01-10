@@ -1,6 +1,8 @@
 package com.pdm.top.service.bc;
 
 
+import java.util.List;
+
 import com.pdm.top.domain.bc.Staff;
 import com.pdm.top.page.PageQuery;
 
@@ -15,5 +17,7 @@ public interface StaffService extends PageQuery{
 	public void saveOrUpdate(Staff staff);
 
 	public void restore(String[] ids);
+
+	public List<Staff> findAllNoDeleteStaffs();
 
 }

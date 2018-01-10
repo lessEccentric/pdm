@@ -2,6 +2,8 @@ package com.pdm.top.web.action.bc;
 
 
 
+import java.util.List;
+
 import org.hibernate.criterion.DetachedCriteria;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -51,6 +53,14 @@ public class StaffAction extends BaseAction implements ModelDriven<Staff> {
 		String[] ids = staff.getId().split(", ");
 		staffService.restore(ids);
 		return "restoreSUCCESS";
+	}
+	
+	public String ajaxlist() {
+		//查询未作废取派员列表
+		List<Staff> staffs = staffService.findAllNoDeleteStaffs();
+		//转换为json
+		ActionContext.getContext().put("staffs", staffs);
+		return "ajaxlistSUCCESS";
 	}
 	
 }

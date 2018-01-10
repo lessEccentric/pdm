@@ -1,6 +1,8 @@
 package com.pdm.top.service.impl.bc;
 
 
+import java.util.List;
+
 import com.pdm.top.domain.bc.Subarea;
 import com.pdm.top.page.PageRequestBean;
 import com.pdm.top.page.PageResponseBean;
@@ -26,5 +28,11 @@ public class SubareaServiceImpl extends BaseService implements SubareaService {
 	public void saveOrUpdate(Subarea subarea) {
 		subareaDAO.saveOrupdate(subarea);
 	}
+
+	@Override
+	public List<Subarea> findnoassociations() {
+		return subareaDAO.findByNamedQuery("Subarea.findassociations");
+	}
+
 
 }

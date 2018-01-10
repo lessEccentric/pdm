@@ -1,6 +1,7 @@
 package com.pdm.top.service.base;
 
 import com.pdm.top.dao.GenericDAO;
+import com.pdm.top.domain.bc.DecidedZone;
 import com.pdm.top.domain.bc.Region;
 import com.pdm.top.domain.bc.Staff;
 import com.pdm.top.domain.bc.Standard;
@@ -28,6 +29,9 @@ public abstract class BaseService {
     
     @Resource(name = "subareaDAO")
     protected GenericDAO<Subarea> subareaDAO;
+   
+    @Resource(name = "decidedZoneDAO")
+    protected GenericDAO<DecidedZone> decidedZoneDAO;
     
     @SuppressWarnings("unchecked")
 	public <T> PageResponseBean pageQuery(PageRequestBean pageRequestBean, GenericDAO<T> dao) {

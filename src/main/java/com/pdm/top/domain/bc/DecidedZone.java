@@ -11,9 +11,9 @@ import java.util.Set;
 public class DecidedZone {
 
 	private String id;
-    private Staff staff;
-    private String name;
-    private Set subareas = new HashSet(0);
+    private Staff staff;	//关联取派员
+    private String name;	//名称
+    private Set subareas = new HashSet(0);	//关联定区
     
     public DecidedZone() {
 	}

@@ -70,7 +70,7 @@ public class SubareaAction extends BaseAction implements ModelDriven<Subarea>{
 		
 		ActionContext.getContext().put("pageResponseBean", pageResponseBean);
 		
-		//将查询结果放到session中
+		//将查询结果缓存到session中
 		ServletActionContext.getRequest().getSession().setAttribute("pageResponseBean", pageResponseBean);
 		
 		return "pageQuerySUCCESS";
@@ -136,11 +136,18 @@ public class SubareaAction extends BaseAction implements ModelDriven<Subarea>{
 		return new ByteArrayInputStream(data);
 	}
 	
+	public String findnoassociations() {
+		List<Subarea> subareas = subareaService.findnoassociations();
+		ActionContext.getContext().put("subareas", subareas);
+		return "findnoassociationsSUCCESS";
+	}
+	
 	//删除
 	public String delBatch() {
 		String[] ids = subarea.getId().split(", ");
 		subareaService.delBatch(ids);
 		return "delBatchSUCCESS";
 	}
+	
 	
 }

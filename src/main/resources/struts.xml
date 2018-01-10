@@ -101,6 +101,16 @@
 			<!-- 删除数据 -->
 			<result name="delBatchSUCCESS">/WEB-INF/pages/base/staff.jsp</result>
 			<result name="restoreSUCCESS">/WEB-INF/pages/base/staff.jsp</result>
+			<!--取派员ajax列表 -->
+			<result name="ajaxlistSUCCESS" type="json">
+				<param name="root">staffs</param>
+				<!-- 配置属性includeProperties 指定哪些属性返回 -->
+				<param name="includeProperties">
+					<!-- 正则表达式 格式 -->
+					\[\d+\]\.id,
+					\[\d+\]\.name
+				</param>
+			</result>
 		</action>
 		<!-- 区域管理 -->
 		<action name="region_*" class="regionAction" method="{1}">
@@ -157,10 +167,37 @@
 					rows\[\d+\]\.region\.district
 				</param>
 			</result>
+			<!-- 关联定区列表 -->
+			<result name="findnoassociationsSUCCESS" type="json">
+				<param name="root">subareas</param>
+				<param name="includeProperties">
+					\[\d+\]\.subareaId,
+					\[\d+\]\.addresskey,
+					\[\d+\]\.position
+				</param>
+			</result>
 			<!-- 查询结果导出 -->
 			<result name="exportXlsSUCCESS" type="stream">
 				<param name="contentType">application/vnd.ms-excel</param>
 				<param name="contentDisposition">attachment;filename=${downLoadFileName}</param>
+			</result>
+		</action>
+		
+		<!-- 定区管理 -->
+		<action name="decidedzone_*" class="decidedZoneAction" method="{1}">
+			<!-- 添加或修改 -->
+			<result name="saveOrUpdateSUCCESS">/WEB-INF/pages/base/decidedzone.jsp</result>
+			<!-- 分页列表查询 -->
+			<result name="pageQuerySUCCESS" type="json">
+				<param name="root">pageResponseBean</param>
+				<param name="includeProperties">
+					total,
+					rows\[\d+\]\.id,
+					rows\[\d+\]\.staff\.name,
+					rows\[\d+\]\.staff\.telephone,
+					rows\[\d+\]\.staff\.station,
+					rows\[\d+\]\.name,
+				</param>
 			</result>
 		</action>
 

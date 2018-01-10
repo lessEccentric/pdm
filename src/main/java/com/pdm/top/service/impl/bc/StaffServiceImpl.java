@@ -1,6 +1,8 @@
 package com.pdm.top.service.impl.bc;
 
 
+import java.util.List;
+
 import com.pdm.top.domain.bc.Staff;
 import com.pdm.top.page.PageRequestBean;
 import com.pdm.top.page.PageResponseBean;
@@ -33,6 +35,11 @@ public class StaffServiceImpl extends BaseService implements StaffService {
 			Staff staff = staffDAO.findById(id);
 			staff.setDeltag("0");
 		}
+	}
+
+	@Override
+	public List<Staff> findAllNoDeleteStaffs() {
+		return staffDAO.findByNamedQuery("Staff.findNoDelete");
 	}
 
 }
