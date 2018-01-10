@@ -18,4 +18,5 @@
 	<bean id="staffService" class="com.pdm.top.service.impl.bc.StaffServiceImpl" />
 	<bean id="regionService" class="com.pdm.top.service.impl.bc.RegionServiceImpl" />
 	<bean id="subareaService" class="com.pdm.top.service.impl.bc.SubareaServiceImpl" />
+	<bean id="decidedZoneService" class="com.pdm.top.service.impl.bc.DecidedZoneServiceImpl"/>
 </beans>

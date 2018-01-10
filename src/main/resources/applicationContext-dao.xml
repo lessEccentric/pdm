@@ -48,4 +48,11 @@
 		<!-- 注入SessionFactory-->
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	
+	<bean id="decidedZoneDAO" class="com.pdm.top.dao.impl.GenericDAOImpl">	
+		<!-- 构造器注入，传入实体类完整类名 -->
+		<constructor-arg index="0" type="java.lang.String" value="com.pdm.top.domain.bc.DecidedZone"></constructor-arg>
+		<!-- 注入SessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 </beans>
