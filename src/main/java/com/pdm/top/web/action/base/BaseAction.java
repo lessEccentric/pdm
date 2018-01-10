@@ -2,6 +2,7 @@ package com.pdm.top.web.action.base;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.pdm.top.page.PageRequestBean;
+import com.pdm.top.service.bc.DecidedZoneService;
 import com.pdm.top.service.bc.RegionService;
 import com.pdm.top.service.bc.StaffService;
 import com.pdm.top.service.bc.StandardService;
@@ -32,6 +33,9 @@ public abstract class BaseAction extends ActionSupport {
 	
 	@Resource(name = "subareaService")
 	protected SubareaService subareaService;
+	
+	@Resource(name = "decidedZoneService")
+	protected DecidedZoneService decidedZoneService;
 	
 	
 
