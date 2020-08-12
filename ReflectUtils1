@@ -1,0 +1,159 @@
+package com.em.reflect;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+/**
+ * Created by Administrator on 2018/9/24.
+ */
+public class ReflectUtils {
+
+    /**
+     * 反射出对象的两种方式：
+     * 1. Class.forName()
+     * 2.通过构造方法
+     */
+
+
+    public static <T> T newInstance(Class<T> clazz) throws IllegalAccessException, InstantiationException {
+        if (clazz != null) {
+            T t = clazz.newInstance();
+            return t;
+        }
+        return null;
+    }
+
+    public static <T> T newInstanceByConstructor(Class<? extends T> clazz, Object... paramsObjects) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+//        clazz.getDeclaredConstructors() 得到所有修饰符的构造方法，包括private
+//        clazz.getConstructors(); 得到public修饰的构造方法
+        Constructor[] construtors = clazz.getDeclaredConstructors();
+        for (Constructor constructor : construtors) {
+            Class[] parameterTypeClass = constructor.getParameterTypes();
+            if (parameterTypeClass.length == paramsObjects.length) {
+                for (int i = 0; i < parameterTypeClass.length; i++) {
+                    if (parameterTypeClass[i] == paramsObjects[i].getClass())
+                        break;
+                }
+                constructor.setAccessible(true);
+                return (T) constructor.newInstance(paramsObjects);
+            }
+        }
+        throw new NoSuchMethodException();
+    }
+
+    /**
+     * 获取传入对象的字段值，含父类
+     */
+    public static Object getFieldValue(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
+        if (obj == null)
+            return null;
+        if (fieldName == null || fieldName.trim().equals(""))
+            throw new IllegalArgumentException("fieldName is null");
+        Class clazz = obj.getClass();
+        Field field = null;
+        while (clazz != null) {
+            try {
+                field = clazz.getDeclaredField(fieldName);
+            } catch (NoSuchFieldException e) {
+                clazz = clazz.getSuperclass();
+            }
+            if (field != null) {
+                break;
+            }
+        }
+
+        if (field == null) {
+            throw new NoSuchFieldException();
+        }
+
+        field.setAccessible(true);  //设为true可以访问受限制的变量,默认为false ，这样将会破坏访问规则，但是某些时候却必须要访问(序列化、持久化)
+        return field.get(obj);
+    }
+
+    public static boolean setFieldValue(Object obj, String fieldName, Object value) throws NoSuchFieldException, IllegalAccessException {
+        if (obj == null)
+            return false;
+        if (fieldName == null || fieldName.trim().equals(""))
+            return false;
+        Field field = null;
+        Class clazz = obj.getClass();
+        while (clazz != null) {
+            try {
+                field = clazz.getDeclaredField(fieldName);
+            } catch (NoSuchFieldException e) {
+                clazz = clazz.getSuperclass();
+            }
+            if (field != null) {
+                break;
+            }
+        }
+
+        if (field == null) {
+            throw new NoSuchFieldException();
+        }
+
+        field.setAccessible(true);
+        field.set(obj, value);
+        return true;
+    }
+
+    /**
+     * 调用某个对象的方法，包括静态方法
+     */
+    public static Object invoke(Object obj, String methodName, Object... paramValues) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        if (obj == null)
+            throw new NullPointerException();
+        if (methodName == null || methodName.trim().equals(""))
+            return new NullPointerException();
+
+        Method[] methods = obj.getClass().getDeclaredMethods();
+        for (Method method : methods) {
+            if (method.getName().equals(methodName)) {
+                Class[] paramClazz = method.getParameterTypes();
+                if (paramClazz != null && paramClazz.length == paramValues.length) {
+                    for (int i = 0; i < paramClazz.length; i++) {
+                        if (!paramClazz[i].equals(paramValues[i].getClass()))
+                            break;
+                    }
+                    method.setAccessible(true);
+                    return method.invoke(obj, paramValues);
+                }
+            }
+        }
+        throw new NoSuchMethodException();
+    }
+
+
+    public static void main(String[] args) {
+//        FinalFiledClass finalFiledClass = reflect(FinalFiledClass.class);
+//        FinalFiledClass finalFiledClass = reflectByConstructor(FinalFiledClass.class, true, "zhangsan", 23);
+        FinalFiledClass finalFiledClass = null;
+        try {
+            finalFiledClass = newInstanceByConstructor(FinalFiledClass.class, "zhangsan", 23);
+//            finalFiledClass = reflectByConstructor(FinalFiledClass.class, true);
+//            System.out.println(finalFiledClass);
+//            Object value = getFieldValue(finalFiledClass, "username");
+//            System.out.println(value);
+//            String name = "zhangyangyang";
+//            setFieldValue(finalFiledClass, "username", name);
+//            value = getFieldValue(finalFiledClass, "username");
+//            System.out.println(value);
+
+
+            System.out.println(invoke(finalFiledClass, "test", "lisi",33));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+}
+
+
+
+
